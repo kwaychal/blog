@@ -22,7 +22,7 @@
                         @foreach($bloggers as $blogger)
                         <tr>
                             <td>
-                                <a href="{{route('admin.users.show',$blogger)}}">
+                                <a href="#">
                                     {{ucfirst($blogger->name)}}
                                 </a>
                             </td>

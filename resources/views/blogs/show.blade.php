@@ -4,11 +4,9 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <h1>Blogs</h1>
+            <a href="{{ url()->previous() }}" class="btn btn-primary float-right">Back</a>
         </div>
     </div>
-    @foreach($blogs as $blog)
-    <hr>
     <div class="row">
         <div class="col-md-12">
             <h5>
@@ -21,7 +19,7 @@
             <img src="{{$blog->image}}" style="max-width: 200px; max-height: 200px" alt="">
         </div>
         <div class="col-md-9 col-sm-12">
-            <p class="blog-list-text">{{$blog->description}}</p>
+            {!! $blog->description !!}</p>
         </div>
     </div>
     <div class="row">
@@ -32,8 +30,5 @@
             </a>
         </div>
     </div>
-    @endforeach
-    <hr>
-    {{ $blogs->links() }}
 </div>
 @endsection

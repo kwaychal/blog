@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Blog;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +24,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $blogs = Blog::orderBy('created_at')->paginate(3);
+        return view('home',compact('blogs'));
+    }
+
+    public function show(Blog $blog)
+    {
+        return view('blogs.show',compact('blog'));
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Blog;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -15,6 +16,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('admin.home');
+        $blogs = Blog::orderBy('created_at')->paginate(3);
+        return view('home',compact('blogs'));
     }
 }

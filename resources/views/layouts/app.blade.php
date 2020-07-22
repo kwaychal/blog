@@ -20,6 +20,15 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <style>
+        .blog-list-text {
+            -webkit-line-clamp: 5;
+            overflow : hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+        }
+    </style>
 </head>
 
 <body>
@@ -45,17 +54,11 @@
                                     <li class="nav-item">
                                         <a class="nav-link" href="{{route('admin.users.index')}}">Users</a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#">Profile</a>
-                                    </li>
                                 </ul>
                             @else
                             <ul class="navbar-nav mr-auto">
                                     <li class="nav-item">
                                         <a class="nav-link" href="{{route('home')}}">Dashboard</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#">Profile</a>
                                     </li>
                                 </ul>
                             @endif

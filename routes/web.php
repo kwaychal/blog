@@ -37,4 +37,5 @@ Route::group([
     'middleware' => ['auth', 'twofactor']
 ], function () {
     Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/blog/show/{blog}', 'HomeController@show')->name('blog.show');
 });
