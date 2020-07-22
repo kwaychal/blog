@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\LoginLog;
 use App\Notifications\TwoFactorCode;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -52,5 +53,28 @@ class LoginController extends Controller
         $this->two_factor_code = rand(100000, 999999);
         $this->two_factor_expires_at = now()->addMinutes(10);
         $this->save();
+    }
+
+    public function logout(Request $request)
+    {
+        LoginLog::create([
+            'user_id' => auth()->user()->id,
+            'browser' => $_SERVER["HTTP_USER_AGENT"],
+            'ip_address' => request()->ip(),
+            'type' => 'logout'
+        ]);
+        $this->guard()->logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        if ($response = $this->loggedOut($request)) {
+            return $response;
+        }
+
+        return $request->wantsJson()
+            ? new Response('', 204)
+            : redirect('/');
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\LoginLog;
 use App\Notifications\TwoFactorCode;
 use Illuminate\Http\Request;
 
@@ -24,7 +25,22 @@ class TwoFactorController extends Controller
         if($request->input('two_factor_code') == $user->two_factor_code)
         {
             $user->resetTwoFactorCode();
-
+            if($user->role == 'admin'){
+                return redirect()->route('admin.home');
+            }
+            // Create login log
+            try {
+                //code...
+            } catch (\Throwable $th) {
+                //throw $th;
+            }
+            
+            LoginLog::create([
+                'user_id' => auth()->user()->id,
+                'browser' => $_SERVER["HTTP_USER_AGENT"],
+                'ip_address' => request()->ip(),
+                'type' => 'login'
+            ]);
             return redirect()->route('home');
         }
 

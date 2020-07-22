@@ -66,8 +66,6 @@ class RegisterController extends Controller
             $validationRules['referred_by'] = 'in:' . implode(',',$referralCodes);
         }
 
-        
-        // dd('in:users,'.implode(',',$referralCodes));
         return Validator::make($data, $validationRules);
     }
 
@@ -85,6 +83,7 @@ class RegisterController extends Controller
             'phone' => $data['phone'],
             'city' => $data['city'],
             'state' => $data['state'],
+            'referred_by' => $data['referred_by']??null,
             'referral_code' => uniqid(),
             'password' => Hash::make($data['password']),
         ]);

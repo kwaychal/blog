@@ -24,10 +24,17 @@ Route::get('verify/resend', 'Auth\TwoFactorController@resend')->name('verify.res
 Route::resource('verify', 'Auth\TwoFactorController')->only(['index', 'store']);
 
 Route::group([
+    'prefix' => 'admin', 
+    'as' => 'admin.',
+    'namespace' => 'Admin', 
+    'middleware' => ['auth', 'twofactor','admin']
+], function () {
+    Route::get('/home', 'HomeController@index')->name('home');
+    Route::resource('users','UserController');
+});
+
+Route::group([ 
     'middleware' => ['auth', 'twofactor']
 ], function () {
     Route::get('/home', 'HomeController@index')->name('home');
-    // Route::resource('permissions', 'PermissionsController');
-    // Route::resource('roles', 'RolesController');
-    // Route::resource('users', 'UsersController');
 });
